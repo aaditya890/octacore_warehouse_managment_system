@@ -1,1 +1,23 @@
-<h1>Hello</h1>
+<nav class="sidebar">
+  <ul>
+    <li><a [routerLink]="['/', routes.DASHBOARD]">Dashboard</a></li>
+    <li><a [routerLink]="['/', routes.INVENTORY]">Inventory</a></li>
+    <li><a [routerLink]="['/', routes.INVENTORY, 'add']">add Inventory</a></li>
+    <li><a [routerLink]="['/', routes.PURCHASE_INDENTS]">Purchase Indents</a></li>
+    <li><a [routerLink]="['/', routes.GATE_PASS]">Gate Pass</a></li>
+    <li><a [routerLink]="['/', routes.INOUT, 'inwards']">Inwards</a></li>
+    <li><a [routerLink]="['/', routes.INOUT, 'outwards']">Outwards</a></li>
+    <li><a [routerLink]="['/', routes.USER_MANAGEMENT]">User Management</a></li>
+    <li><a [routerLink]="['/', routes.REPORTS]">Reports</a></li>
+    <li><a [routerLink]="['/', routes.SETTINGS, 'company']">Company Settings</a></li>
+    <li><a [routerLink]="['/', routes.SETTINGS, 'profile']">Profile Settings</a></li>
+    <li><a [routerLink]="['/', routes.AUTH, routes.LOGIN]">Login</a></li>
+    <li><a [routerLink]="['/', routes.AUTH, routes.REGISTER]">Register</a></li>
+    <li><a [routerLink]="['/', routes.AUTH, routes.FORGOT_PASSWORD]">Forgot Password</a></li>
+  </ul>
+</nav>
+ 
+
+<main class="bg-blue-400 text-3xl p-4 text-center">
+    <router-outlet></router-outlet>
+</main>
