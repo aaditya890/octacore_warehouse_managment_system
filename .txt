@@ -10,6 +10,8 @@ src
 │   │   ├── guards
 │   │   │   └── auth.guard.ts
 │   │   ├── interceptors
+│   │   │   ├── auth-token.interceptor.ts
+│   │   │   └── http-error.interceptor.ts
 │   │   ├── models
 │   │   │   ├── gatepass.model.ts
 │   │   │   ├── indent.model.ts
@@ -22,29 +24,6 @@ src
 │   │       ├── notification.service.ts
 │   │       └── storage.service.ts
 │   ├── features
-│   │   ├── Inventory
-│   │   │   ├── components
-│   │   │   │   ├── inventory-add
-│   │   │   │   │   └── inventory-add
-│   │   │   │   │       ├── inventory-add.component.html
-│   │   │   │   │       ├── inventory-add.component.scss
-│   │   │   │   │       ├── inventory-add.component.spec.ts
-│   │   │   │   │       └── inventory-add.component.ts
-│   │   │   │   ├── inventory-detail
-│   │   │   │   │   └── inventory-detail
-│   │   │   │   │       ├── inventory-detail.component.html
-│   │   │   │   │       ├── inventory-detail.component.scss
-│   │   │   │   │       ├── inventory-detail.component.spec.ts
-│   │   │   │   │       └── inventory-detail.component.ts
-│   │   │   │   └── inventory-list
-│   │   │   │       └── inventory-list
-│   │   │   │           ├── inventory-list.component.html
-│   │   │   │           ├── inventory-list.component.scss
-│   │   │   │           ├── inventory-list.component.spec.ts
-│   │   │   │           └── inventory-list.component.ts
-│   │   │   └── services
-│   │   │       ├── inventory.service.spec.ts
-│   │   │       └── inventory.service.ts
 │   │   ├── dashboard
 │   │   │   ├── components
 │   │   │   │   └── dashboard
@@ -58,134 +37,157 @@ src
 │   │   ├── gate-pass
 │   │   │   ├── components
 │   │   │   │   ├── gatepass-create
-│   │   │   │   │   └── gatepass-create
-│   │   │   │   │       ├── gatepass-create.component.html
-│   │   │   │   │       ├── gatepass-create.component.scss
-│   │   │   │   │       ├── gatepass-create.component.spec.ts
-│   │   │   │   │       └── gatepass-create.component.ts
-│   │   │   │   └── gatepass-list
-│   │   │   │       └── gatepass-list
-│   │   │   │           ├── gatepass-list.component.html
-│   │   │   │           ├── gatepass-list.component.scss
-│   │   │   │           ├── gatepass-list.component.spec.ts
-│   │   │   │           └── gatepass-list.component.ts
+│   │   │   │   │   ├── gatepass-create.component.html
+│   │   │   │   │   ├── gatepass-create.component.scss
+│   │   │   │   │   ├── gatepass-create.component.spec.ts
+│   │   │   │   │   └── gatepass-create.component.ts
+│   │   │   │   └── gatepass-list  
+│   │   │   │       ├── gatepass-list.component.html
+│   │   │   │       ├── gatepass-list.component.scss
+│   │   │   │       ├── gatepass-list.component.spec.ts
+│   │   │   │       └── gatepass-list.component.ts
 │   │   │   └── services
 │   │   │       ├── gatepass.service.spec.ts
 │   │   │       └── gatepass.service.ts
+│   │   ├── inventory
+│   │   │   ├── components
+│   │   │   │   ├── inventory-add
+│   │   │   │   │   ├── inventory-add.component.html
+│   │   │   │   │   ├── inventory-add.component.scss
+│   │   │   │   │   ├── inventory-add.component.spec.ts
+│   │   │   │   │   └── inventory-add.component.ts
+│   │   │   │   ├── inventory-detail
+│   │   │   │   │   ├── inventory-detail.component.html
+│   │   │   │   │   ├── inventory-detail.component.scss
+│   │   │   │   │   ├── inventory-detail.component.spec.ts
+│   │   │   │   │   └── inventory-detail.component.ts
+│   │   │   │   └── inventory-list
+│   │   │   │       ├── inventory-list.component.html
+│   │   │   │       ├── inventory-list.component.scss
+│   │   │   │       ├── inventory-list.component.spec.ts
+│   │   │   │       └── inventory-list.component.ts
+│   │   │   └── services
+│   │   │       ├── inventory.service.spec.ts
+│   │   │       └── inventory.service.ts
 │   │   ├── inwards-outwards
 │   │   │   ├── components
 │   │   │   │   ├── inwards-list
-│   │   │   │   │   └── inwards-list
-│   │   │   │   │       ├── inwards-list.component.html
-│   │   │   │   │       ├── inwards-list.component.scss
-│   │   │   │   │       ├── inwards-list.component.spec.ts
-│   │   │   │   │       └── inwards-list.component.ts
+│   │   │   │   │   ├── inwards-list.component.html
+│   │   │   │   │   ├── inwards-list.component.scss
+│   │   │   │   │   ├── inwards-list.component.spec.ts
+│   │   │   │   │   └── inwards-list.component.ts
 │   │   │   │   └── outwards-list
-│   │   │   │       └── outwards-list
-│   │   │   │           ├── outwards-list.component.html
-│   │   │   │           ├── outwards-list.component.scss
-│   │   │   │           ├── outwards-list.component.spec.ts
-│   │   │   │           └── outwards-list.component.ts
+│   │   │   │       ├── outwards-list.component.html
+│   │   │   │       ├── outwards-list.component.scss
+│   │   │   │       ├── outwards-list.component.spec.ts
+│   │   │   │       └── outwards-list.component.ts
 │   │   │   └── services
 │   │   │       ├── inout.service.spec.ts
 │   │   │       └── inout.service.ts
 │   │   ├── purchase-indents
 │   │   │   ├── components
 │   │   │   │   ├── indent-create
-│   │   │   │   │   └── indent-create
-│   │   │   │   │       ├── indent-create.component.html
-│   │   │   │   │       ├── indent-create.component.scss
-│   │   │   │   │       ├── indent-create.component.spec.ts
-│   │   │   │   │       └── indent-create.component.ts
+│   │   │   │   │   ├── indent-create.component.html
+│   │   │   │   │   ├── indent-create.component.scss
+│   │   │   │   │   ├── indent-create.component.spec.ts
+│   │   │   │   │   └── indent-create.component.ts
 │   │   │   │   └── indent-list
-│   │   │   │       └── indent-list
-│   │   │   │           ├── indent-list.component.html
-│   │   │   │           ├── indent-list.component.scss
-│   │   │   │           ├── indent-list.component.spec.ts
-│   │   │   │           └── indent-list.component.ts
+│   │   │   │       ├── indent-list.component.html
+│   │   │   │       ├── indent-list.component.scss
+│   │   │   │       ├── indent-list.component.spec.ts
+│   │   │   │       └── indent-list.component.ts
 │   │   │   └── services
 │   │   │       ├── indent.service.spec.ts
 │   │   │       └── indent.service.ts
 │   │   ├── user-management
 │   │   │   ├── components
 │   │   │   │   ├── user-create
-│   │   │   │   │   └── user-create
-│   │   │   │   │       ├── user-create.component.html
-│   │   │   │   │       ├── user-create.component.scss
-│   │   │   │   │       ├── user-create.component.spec.ts
-│   │   │   │   │       └── user-create.component.ts
+│   │   │   │   │   ├── user-create.component.html
+│   │   │   │   │   ├── user-create.component.scss
+│   │   │   │   │   ├── user-create.component.spec.ts
+│   │   │   │   │   └── user-create.component.ts
 │   │   │   │   ├── user-list
-│   │   │   │   │   └── user-list
-│   │   │   │   │       ├── user-list.component.html
-│   │   │   │   │       ├── user-list.component.scss
-│   │   │   │   │       ├── user-list.component.spec.ts
-│   │   │   │   │       └── user-list.component.ts
+│   │   │   │   │   ├── user-list.component.html
+│   │   │   │   │   ├── user-list.component.scss
+│   │   │   │   │   ├── user-list.component.spec.ts
+│   │   │   │   │   └── user-list.component.ts
 │   │   │   │   └── user-profile
-│   │   │   │       └── user-profile
-│   │   │   │           ├── user-profile.component.html
-│   │   │   │           ├── user-profile.component.scss
-│   │   │   │           ├── user-profile.component.spec.ts
-│   │   │   │           └── user-profile.component.ts
+│   │   │   │       ├── user-profile.component.html
+│   │   │   │       ├── user-profile.component.scss
+│   │   │   │       ├── user-profile.component.spec.ts
+│   │   │   │       └── user-profile.component.ts
 │   │   │   └── services
 │   │   │       ├── user.service.spec.ts
 │   │   │       └── user.service.ts
 │   │   ├── wms-auth
 │   │   │   ├── forgot-password
-│   │   │   │   └── forgot-password
-│   │   │   │       ├── forgot-password.component.html
-│   │   │   │       ├── forgot-password.component.scss
-│   │   │   │       ├── forgot-password.component.spec.ts
-│   │   │   │       └── forgot-password.component.ts
+│   │   │   │   ├── forgot-password.component.html
+│   │   │   │   ├── forgot-password.component.scss
+│   │   │   │   ├── forgot-password.component.spec.ts
+│   │   │   │   └── forgot-password.component.ts
 │   │   │   ├── login
-│   │   │   │   └── login
-│   │   │   │       ├── login.component.html
-│   │   │   │       ├── login.component.scss
-│   │   │   │       ├── login.component.spec.ts
-│   │   │   │       └── login.component.ts
+│   │   │   │   ├── login.component.html
+│   │   │   │   ├── login.component.scss
+│   │   │   │   ├── login.component.spec.ts
+│   │   │   │   └── login.component.ts
 │   │   │   └── register
-│   │   │       └── register
-│   │   │           ├── register.component.html
-│   │   │           ├── register.component.scss
-│   │   │           ├── register.component.spec.ts
-│   │   │           └── register.component.ts
+│   │   │       ├── register.component.html
+│   │   │       ├── register.component.scss
+│   │   │       ├── register.component.spec.ts
+│   │   │       └── register.component.ts
 │   │   ├── wms-reports
 │   │   │   ├── components
 │   │   │   │   ├── report-detail
-│   │   │   │   │   └── report-detail
-│   │   │   │   │       ├── report-detail.component.html
-│   │   │   │   │       ├── report-detail.component.scss
-│   │   │   │   │       ├── report-detail.component.spec.ts
-│   │   │   │   │       └── report-detail.component.ts
+│   │   │   │   │   ├── report-detail.component.html
+│   │   │   │   │   ├── report-detail.component.scss
+│   │   │   │   │   ├── report-detail.component.spec.ts
+│   │   │   │   │   └── report-detail.component.ts
 │   │   │   │   └── report-list
-│   │   │   │       └── report-list
-│   │   │   │           ├── report-list.component.html
-│   │   │   │           ├── report-list.component.scss
-│   │   │   │           ├── report-list.component.spec.ts
-│   │   │   │           └── report-list.component.ts
+│   │   │   │       ├── report-list.component.html
+│   │   │   │       ├── report-list.component.scss
+│   │   │   │       ├── report-list.component.spec.ts
+│   │   │   │       └── report-list.component.ts
 │   │   │   └── services
 │   │   │       ├── report.service.spec.ts
 │   │   │       └── report.service.ts
 │   │   └── wms-settings
 │   │       ├── components
 │   │       │   ├── company-settings
-│   │       │   │   └── company-settings
-│   │       │   │       ├── company-settings.component.html
-│   │       │   │       ├── company-settings.component.scss
-│   │       │   │       ├── company-settings.component.spec.ts
-│   │       │   │       └── company-settings.component.ts
+│   │       │   │   ├── company-settings.component.html
+│   │       │   │   ├── company-settings.component.scss
+│   │       │   │   ├── company-settings.component.spec.ts
+│   │       │   │   └── company-settings.component.ts
 │   │       │   └── profile-settings
-│   │       │       └── profile-settings
-│   │       │           ├── profile-settings.component.html
-│   │       │           ├── profile-settings.component.scss
-│   │       │           ├── profile-settings.component.spec.ts
-│   │       │           └── profile-settings.component.ts
+│   │       │       ├── profile-settings.component.html
+│   │       │       ├── profile-settings.component.scss
+│   │       │       ├── profile-settings.component.spec.ts
+│   │       │       └── profile-settings.component.ts
 │   │       └── services
 │   │           ├── settings.service.spec.ts
 │   │           └── settings.service.ts
-│   ├── pipes
 │   └── shared
 │       ├── components
-│       └── directives
+│       │   ├── header
+│       │   │   ├── header.component.html
+│       │   │   ├── header.component.scss
+│       │   │   ├── header.component.spec.ts
+│       │   │   └── header.component.ts
+│       │   ├── loader
+│       │   │   ├── loader.component.html
+│       │   │   ├── loader.component.scss
+│       │   │   ├── loader.component.spec.ts
+│       │   │   └── loader.component.ts
+│       │   └── sidebar
+│       │       ├── sidebar.component.html
+│       │       ├── sidebar.component.scss
+│       │       ├── sidebar.component.spec.ts
+│       │       └── sidebar.component.ts
+│       ├── directives
+│       │   ├── highlight.directive.ts
+│       │   └── role-based.directive.ts
+│       └── pipes
+│           ├── date-format.pipe.ts
+│           └── status-color.pipe.ts
 ├── assets
 │   └── .gitkeep
 ├── environments
